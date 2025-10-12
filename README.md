@@ -1,2 +1,2 @@
 # relax_gen
-Librería de Python diseñada para implementar Algoritmos Genéticos (AGs) de forma altamente autónoma y sencilla.
+Repositorio de la librería "relax_gen", la cual ofrece una implementación simplificada y altamente autónoma de Algoritmos Genéticos (AGs). Su propósito es facilitar la aplicación de estos métodos evolutivos para resolver problemas de optimización y búsqueda complejos donde las técnicas convencionales de Machine Learning y Deep Learning pueden presentar dificultades, como en la exploración de espacios de soluciones vastos, discretos o no convexos. La librería está diseñada para realizar estos cálculos de la manera más autónoma y sencilla posible para el usuario.
