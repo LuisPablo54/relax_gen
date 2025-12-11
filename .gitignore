@@ -1,0 +1,25 @@
+# Ignorar entornos Conda, venv y similares
+env/
+venv/
+.venv/
+relax_gen_test/
+relax_gen_test/Lib/
+relax_gen_test/Scripts/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Archivos temporales de Jupyter
+.ipynb_checkpoints/
+
+# Archivos de construcción de paquetes
+build/
+dist/
+*.egg-info/
+
+# Configuración local de VSCode
+.vscode/
+
+# Otros temporales
+*.log

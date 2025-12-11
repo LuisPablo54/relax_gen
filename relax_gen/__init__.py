@@ -1,5 +1,5 @@
 from .gen import GEN
-from .algorithms.alg_bin import cl_alg_stn_bin_rank
+from .algorithms.alg_bin import cl_alg_stn_bin
 from .algorithms.alg_quantum import cl_alg_quantum
 
 class RelaxGEN(GEN):
@@ -17,7 +17,7 @@ class RelaxGEN(GEN):
         self.num_qubits = kwargs.get("num_qubits")
     
     def alg_stn_bin_rank(self):
-        algoritmo = cl_alg_stn_bin_rank(
+        algoritmo = cl_alg_stn_bin(
             funtion=self.funtion,
             population=self.population,
             cant_genes=self.cant_genes,
