@@ -17,7 +17,8 @@ from .algorithms.alg_quantum import cl_alg_quantum
 
 class GEN():
     def __init__(self, funtion, population, cant_genes = 8, num_cycles= 100, selection_percent = 0.5, 
-                 crossing = 0.5, mutation_percent = 0.3, i_min = None, i_max = None, optimum = "max", num_qubits = None, select_mode='ranking'):
+                 crossing = 0.5, mutation_percent = 0.3, i_min = None, i_max = None, optimum = "max", 
+                 num_qubits = 16, select_mode='ranking'):
         self.funtion = funtion
         self.population = population
         self.cant_genes = cant_genes

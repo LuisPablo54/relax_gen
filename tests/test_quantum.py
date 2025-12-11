@@ -18,8 +18,6 @@ def test_alg_stn_bin_aprox():
            i_min=-2,
            i_max=2
 )
-
     result = modelo.alg_stn_bin()
 
-
-    assert result == pytest.approx(0.39, abs=0.2)
+    assert result == pytest.approx(0.4, abs=0.2)

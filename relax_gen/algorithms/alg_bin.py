@@ -24,7 +24,7 @@ class cl_alg_stn_bin():
 
 #*****************************Run method***********************************
     def run(self):
-        print(f"\n[INFO] Starting algorithm: Standard Binary for {self.select_mode}\n")
+        print(f"\n[INFO] Starting algorithm: Standard Binary for {self.select_mode}")
          # Create initial binary population
         self.bin_population = self.create_binary_population(self.population, self.cant_genes)
         if self.select_mode == 'ranking':
@@ -53,7 +53,7 @@ class cl_alg_stn_bin():
         else:
             print(f"[INFO] Best solution found: {best_individual} with fitness: {self.fitness_binary_population(self.bin_population, self.i_min, self.i_max).min()}")
         
-        print(f"\n[INFO] Ending algoritm stand binary for {self.select_mode}\n")
+        print(f"[INFO] Ending algoritm stand binary for {self.select_mode}\n")
         
         # return the best individual
         return best_individual
