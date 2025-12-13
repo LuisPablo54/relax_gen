@@ -1,6 +1,7 @@
 from .gen import GEN
 from .algorithms.alg_bin import cl_alg_stn_bin
 from .algorithms.alg_quantum import cl_alg_quantum
+from .algorithms.alg_eda import cl_alg_eda
 
 class RelaxGEN(GEN):
     def __init__(self, funtion=None, population=None, **kwargs):
@@ -17,6 +18,7 @@ class RelaxGEN(GEN):
         self.num_qubits = kwargs.get("num_qubits")
         self.select_mode = kwargs.get("select_mode")
         self.num_variables = kwargs.get("num_variables")
+        self.datos = kwargs.get("datos")
     
     def alg_stn_bin(self):
         algoritmo = cl_alg_stn_bin(
@@ -45,5 +47,17 @@ class RelaxGEN(GEN):
             i_min=self.i_min,
             i_max=self.i_max,
             optimum=self.optimum
+        )
+        return algoritmo.run()
+    
+    def alg_eda(self):
+        algoritmo = cl_alg_eda(
+            datos = self.datos,
+            population=self.population,
+            num_variables=self.num_variables,
+            num_ciclos=self.num_ciclos,
+            i_min=self.i_min,
+            i_max=self.i_max,
+            mutation_percent=self.mutation_percent
         )
         return algoritmo.run()

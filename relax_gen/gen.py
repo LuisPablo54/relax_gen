@@ -13,12 +13,13 @@ import pandas as pd
 # Import the algorithms to be used
 from .algorithms.alg_bin import cl_alg_stn_bin
 from .algorithms.alg_quantum import cl_alg_quantum
+from .algorithms.alg_eda import cl_alg_eda
 
 
 class GEN():
     def __init__(self, funtion, population, cant_genes = 8, num_cycles= 100, selection_percent = 0.5, 
                  crossing = 0.5, mutation_percent = 0.3, i_min = None, i_max = None, optimum = "max", 
-                 num_qubits = 16, num_variables = 1, select_mode='ranking'):
+                 num_qubits = 16, num_variables = 1, select_mode='ranking', datos=None):
         self.funtion = funtion
         self.population = population
         self.cant_genes = cant_genes
@@ -32,6 +33,7 @@ class GEN():
         self.optimum = optimum 
         self.num_variables = num_variables
         self.select_mode = select_mode
+        self.datos = datos
 
     def alg_stn_bin(self):
         algoritmo = cl_alg_stn_bin(
@@ -61,6 +63,20 @@ class GEN():
             self.i_max,
             self.optimum
         )
+        return algoritmo.run()
+    
+
+    def alg_eda(self):
+        algoritmo = cl_alg_eda(
+            self.datos,
+            self.population,
+            self.num_variables,
+            self.num_ciclos,
+            self.i_min,
+            self.i_max,
+            self.mutation_percent
+        )
+
         return algoritmo.run()
 
 
