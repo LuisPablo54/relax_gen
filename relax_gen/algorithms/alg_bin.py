@@ -9,7 +9,7 @@ import numpy as np
 class cl_alg_stn_bin():
     def __init__(self, funtion, population, cant_genes, num_ciclos, 
                  selection_percent, crossing, mutation_percent, i_min,
-                    i_max, optimum, select_mode):
+                    i_max, optimum, select_mode, num_variables):
         self.funtion = funtion
         self.population = population
         self.cant_genes = cant_genes
@@ -21,12 +21,14 @@ class cl_alg_stn_bin():
         self.i_max = i_max
         self.optimum = optimum
         self.select_mode = select_mode
+        self.chromosome_length = cant_genes * num_variables
+        self.num_variables = num_variables
 
 #*****************************Run method***********************************
     def run(self):
         print(f"\n[INFO] Starting algorithm: Standard Binary for {self.select_mode}")
          # Create initial binary population
-        self.bin_population = self.create_binary_population(self.population, self.cant_genes)
+        self.bin_population = self.create_binary_population(self.population, self.chromosome_length)
         if self.select_mode == 'ranking':
             select_function = self.selection_Ranking
         elif self.select_mode == 'roulette':
@@ -66,26 +68,47 @@ class cl_alg_stn_bin():
         return self.bin_population
 
     def decode_binary_population(self, P, Imin, Imax):
-        # P: population binary
-        # Imin: min interval
-        # Imax: max interval
-        [r, c] = P.shape # r: number of individuals, c: number of genes
-        decimal = np.zeros(r)
-        rescaled_decimal = np.zeros(r)
+            # P: población binaria
+            # Imin, Imax: límites (asumo los mismos para todas las variables)
+            [r, longitud_total] = P.shape # r: N° individuos, longitud_total: N° total de genes
+            
+            # Longitud de bits por variable, que es self.cant_genes
+            c = self.cant_genes 
+            num_v = self.num_variables
 
-        for i in range(r):
-            for j in range(c):
-                # Transform from binary to integer decimal
-                decimal[i] = decimal[i] + P[i, j] * 2 ** (c - j - 1)
-                # Rescale the decimal value in the search space (0 to 2)
-                rescaled_decimal[i] = (Imax - Imin) * decimal[i] / (2 ** c - 1) + Imin
-        return rescaled_decimal
+            # La salida es una matriz (r, num_v) donde cada fila es un individuo 
+            # y cada columna es una variable decodificada (x1, x2, ...)
+            rescaled_population = np.zeros((r, num_v))
+
+            for i in range(r): # Iteramos sobre cada individuo
+                for k in range(num_v): # Iteramos sobre cada variable del individuo
+                    # 1. Definir el segmento binario para la variable k
+                    start_index = k * c
+                    end_index = (k + 1) * c
+                    segmento_binario = P[i, start_index:end_index]
+                    
+                    # 2. Decodificar el segmento a entero (decimal)
+                    decimal_val = 0
+                    for j in range(c):
+                        # Transformar de binario a entero decimal
+                        # c-j-1 se usa para dar el peso correcto (de derecha a izquierda)
+                        decimal_val += segmento_binario[j] * 2 ** (c - j - 1)
+                    
+                    # 3. Reescalar el valor decimal al rango [Imin, Imax]
+                    # Formula de reescalado: (Imax - Imin) * decimal / (2^c - 1) + Imin
+                    rescaled_population[i, k] = (Imax - Imin) * decimal_val / (2 ** c - 1) + Imin
+
+            # Devolvemos la matriz de individuos decodificados (r filas, num_v columnas)
+            return rescaled_population
 
     def fitness_binary_population(self, population, Imin, Imax):
-        # [r, c] = population.shape
-        x = self.decode_binary_population(population, Imin, Imax)
-        fitness = self.funtion(x)
-        return fitness
+            # x será una matriz (r, num_v)
+            x = self.decode_binary_population(population, Imin, Imax)
+            
+            # Asumiendo que self.funtion acepta una matriz (r, num_v) 
+            # y devuelve un vector de fitness (r,)
+            fitness = self.funtion(x) 
+            return fitness
     
 
     def crossing_binary_population(self, population, cross_percent):

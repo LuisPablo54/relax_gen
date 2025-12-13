@@ -5,7 +5,7 @@ import pytest
 def funcion_test(x):
     return (np.sin(5*x) + 1.5*np.sin(2*x)) * np.exp(-0.1 * x**2)
 
-def test_alg_stn_bin_aprox():
+def test_alg_binary_aprox():
     """
     Probamos que el algoritmo GEN entregue un valor
     cercano al que esperamos (~0.4).

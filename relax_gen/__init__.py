@@ -15,8 +15,10 @@ class RelaxGEN(GEN):
         self.i_max = kwargs.get("i_max")
         self.optimum = kwargs.get("optimum")
         self.num_qubits = kwargs.get("num_qubits")
+        self.select_mode = kwargs.get("select_mode")
+        self.num_variables = kwargs.get("num_variables")
     
-    def alg_stn_bin_rank(self):
+    def alg_stn_bin(self):
         algoritmo = cl_alg_stn_bin(
             funtion=self.funtion,
             population=self.population,
@@ -27,7 +29,9 @@ class RelaxGEN(GEN):
             mutation_percent=self.mutation_percent,
             i_min=self.i_min,
             i_max=self.i_max,
-            optimum=self.optimum
+            optimum=self.optimum,
+            num_variables=self.num_variables,
+            select_mode=self.select_mode
         )
         return algoritmo.run()
 
