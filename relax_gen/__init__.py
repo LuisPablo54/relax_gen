@@ -19,6 +19,10 @@ class RelaxGEN(GEN):
         self.select_mode = kwargs.get("select_mode")
         self.num_variables = kwargs.get("num_variables")
         self.datos = kwargs.get("datos")
+        self.possibility_selection = kwargs.get("possibility_selection")
+        self.metric = kwargs.get("metric")
+        self.model = kwargs.get("model")
+
     
     def alg_stn_bin(self):
         algoritmo = cl_alg_stn_bin(
@@ -58,6 +62,8 @@ class RelaxGEN(GEN):
             num_ciclos=self.num_ciclos,
             i_min=self.i_min,
             i_max=self.i_max,
-            mutation_percent=self.mutation_percent
+            possibility_selection=self.possibility_selection,
+            metric=self.metric,
+            model=self.model
         )
         return algoritmo.run()

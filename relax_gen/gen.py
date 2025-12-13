@@ -17,9 +17,10 @@ from .algorithms.alg_eda import cl_alg_eda
 
 
 class GEN():
-    def __init__(self, funtion, population, cant_genes = 8, num_cycles= 100, selection_percent = 0.5, 
+    def __init__(self, funtion= None, population=None, cant_genes = 8, num_cycles= 100, selection_percent = 0.5, 
                  crossing = 0.5, mutation_percent = 0.3, i_min = None, i_max = None, optimum = "max", 
-                 num_qubits = 16, num_variables = 1, select_mode='ranking', datos=None):
+                 num_qubits = 16, num_variables = 1, select_mode='ranking', datos=None, possibility_selection=0.5,
+                 metric="mse", model="polynomial"):
         self.funtion = funtion
         self.population = population
         self.cant_genes = cant_genes
@@ -34,6 +35,9 @@ class GEN():
         self.num_variables = num_variables
         self.select_mode = select_mode
         self.datos = datos
+        self.possibility_selection = possibility_selection
+        self.metric = metric
+        self.model = model
 
     def alg_stn_bin(self):
         algoritmo = cl_alg_stn_bin(
@@ -74,7 +78,9 @@ class GEN():
             self.num_ciclos,
             self.i_min,
             self.i_max,
-            self.mutation_percent
+            self.possibility_selection,
+            self.metric,
+            self.model
         )
 
         return algoritmo.run()
