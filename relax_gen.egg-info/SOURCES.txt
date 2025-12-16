@@ -9,4 +9,10 @@ relax_gen.egg-info/requires.txt
 relax_gen.egg-info/top_level.txt
 relax_gen/algorithms/__init__.py
 relax_gen/algorithms/alg_bin.py
+relax_gen/algorithms/alg_eda.py
 relax_gen/algorithms/alg_quantum.py
+tests/test_binary.py
+tests/test_binary_multi_var.py
+tests/test_binary_two_var.py
+tests/test_eda_BUMDA.py
+tests/test_quantum.py

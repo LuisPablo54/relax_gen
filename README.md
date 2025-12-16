@@ -1,2 +1,61 @@
-# relax_gen
-Repositorio de la librería "relax_gen", la cual ofrece una implementación simplificada y altamente autónoma de Algoritmos Genéticos (AGs). Su propósito es facilitar la aplicación de estos métodos evolutivos para resolver problemas de optimización y búsqueda complejos donde las técnicas convencionales de Machine Learning y Deep Learning pueden presentar dificultades, como en la exploración de espacios de soluciones vastos, discretos o no convexos. La librería está diseñada para realizar estos cálculos de la manera más autónoma y sencilla posible para el usuario.
+# 🧬 RelaxGEN: Librería de Algoritmos de Optimización Genética y Probabilística
+
+[![PyPI Version](https://img.shields.io/pypi/v/relaxgen?color=blue)](https://pypi.org/project/relaxgen/)
+[![License](https://img.shields.io/github/license/tu_usuario/relaxgen)](LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/tu_usuario/relaxgen)]()
+[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)]()
+
+## 💡 ¿Qué es RelaxGEN?
+
+**RelaxGEN** es una librería Python de alto nivel diseñada para facilitar la implementación y experimentación con diferentes modelos de optimización metaheurística. Ofrece una API unificada para tres paradigmas principales:
+
+1.  **Algoritmos Genéticos Clásicos:** Basados en codificación binaria y operadores estándar.
+2.  **Algoritmos Genéticos Cuánticos (QGA):** Utilizando representación probabilística (Qubits) para una búsqueda más eficiente.
+3.  **Algoritmos de Estimación de Distribución (EDA):** Modelado probabilístico para generar nuevas poblaciones.
+
+> El objetivo principal es proporcionar una herramienta flexible y rápida para la optimización de funciones y el ajuste de modelos complejos.
+
+## 🚀 Instalación
+
+La forma más sencilla de instalar `RelaxGEN` es a través de `pip`:
+
+```bash
+pip install relaxgen
+```
+
+## Uso Rápido
+
+```bash
+import numpy as np
+import relax_gen.GEN as rg
+
+def funcion_test(x):
+    return (np.sin(5*x) + 1.5*np.sin(2*x)) * np.exp(-0.1 * x**2)
+
+print("Inicio")
+menu = rg(funcion_test,  
+           population=300, 
+           i_min=-2, 
+           i_max=2
+           )
+
+best_individual = menu.alg_stn_bin()
+```
+
+La librería relax-gen te permite elegir entre tres modelos de optimización diferentes. Los parámetros de inicialización varían según el algoritmo seleccionado. 
+
+Más información sobre las distintas funciones se encuentra en la Wiki: 
+https://github.com/LuisPablo54/relax_gen/wiki
+
+
+## 🤝 Contribuciones
+¡Las contribuciones son bienvenidas! Si deseas agregar un nuevo algoritmo genético, mejorar la documentación o reportar un error, por favor revisa la guía de contribución.
+- Haz un Fork del repositorio.
+- Crea una rama.
+- Commitea tus cambios.
+- Empuja al branch.
+- Abre un Pull Request.
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
