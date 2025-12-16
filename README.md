@@ -17,10 +17,10 @@
 
 ## 🚀 Instalación
 
-La forma más sencilla de instalar `RelaxGEN` es a través de `pip`:
+La forma más sencilla de instalar es a través de `pip`:
 
 ```bash
-pip install relaxgen
+pip install relax-gen
 ```
 
 ## Uso Rápido
