@@ -14,16 +14,17 @@ import pandas as pd
 from .algorithms.alg_bin import cl_alg_stn_bin
 from .algorithms.alg_quantum import cl_alg_quantum
 from .algorithms.alg_eda import cl_alg_eda
+from .algorithms.alg_gp import cl_alg_gp
 
 
 class GEN():
-    def __init__(self, funtion= None, population=None, cant_genes = 8, num_cycles= 100, selection_percent = 0.5, 
+    def __init__(self, funtion= None, population=None, num_genes = 8, num_cycles= 100, selection_percent = 0.5, 
                  crossing = 0.5, mutation_percent = 0.3, i_min = None, i_max = None, optimum = "max", 
                  num_qubits = 16, num_variables = 1, select_mode='ranking', datos=None, possibility_selection=0.5,
-                 metric="mse", model="polynomial"):
+                 metric="mse", model="polynomial", max_depth=5):
         self.funtion = funtion
         self.population = population
-        self.cant_genes = cant_genes
+        self.num_genes = num_genes
         self.num_qubits = num_qubits
         self.num_ciclos = num_cycles
         self.selection_percent = selection_percent
@@ -38,12 +39,13 @@ class GEN():
         self.possibility_selection = possibility_selection
         self.metric = metric
         self.model = model
+        self.max_depth = max_depth
 
-    def alg_stn_bin(self):
-        algoritmo = cl_alg_stn_bin(
+    def alg_stn_bin(self): # Standard binary algorithm
+        algorithm = cl_alg_stn_bin(
             self.funtion,
             self.population,
-            self.cant_genes,
+            self.num_genes,
             self.num_ciclos,
             self.selection_percent,
             self.crossing,
@@ -54,10 +56,10 @@ class GEN():
             self.select_mode,
             self.num_variables
         )
-        return algoritmo.run()
+        return algorithm.run()
 
-    def alg_quantum(self):
-        algoritmo = cl_alg_quantum(
+    def alg_quantum(self): # Quantum algorithm
+        algorithm = cl_alg_quantum(
             self.funtion,
             self.population,
             self.num_qubits,
@@ -67,11 +69,11 @@ class GEN():
             self.i_max,
             self.optimum
         )
-        return algoritmo.run()
+        return algorithm.run()
     
 
-    def alg_eda(self):
-        algoritmo = cl_alg_eda(
+    def alg_eda(self): # EDA algorithm
+        algorithm = cl_alg_eda(
             self.datos,
             self.population,
             self.num_variables,
@@ -83,6 +85,12 @@ class GEN():
             self.model
         )
 
-        return algoritmo.run()
+        return algorithm.run()
 
-
+    def alg_gp(self): # Genetic programming algorithm
+        algorithm = cl_alg_gp(
+            self.datos,
+            self.population,
+            self.max_depth
+        )
+        return algorithm.run()

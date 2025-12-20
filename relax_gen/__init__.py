@@ -2,12 +2,13 @@ from .gen import GEN
 from .algorithms.alg_bin import cl_alg_stn_bin
 from .algorithms.alg_quantum import cl_alg_quantum
 from .algorithms.alg_eda import cl_alg_eda
+from .algorithms.alg_gp import cl_alg_gp
 
 class RelaxGEN(GEN):
     def __init__(self, funtion=None, population=None, **kwargs):
         super().__init__(funtion, population, **kwargs)
         # Almacena los parámetros específicos como atributos directos
-        self.cant_genes = kwargs.get("cant_genes")
+        self.num_genes = kwargs.get("num_genes")
         self.num_cycles = kwargs.get("num_cycles")
         self.selection_percent = kwargs.get("selection_percent")
         self.crossing = kwargs.get("crossing")
@@ -18,17 +19,18 @@ class RelaxGEN(GEN):
         self.num_qubits = kwargs.get("num_qubits")
         self.select_mode = kwargs.get("select_mode")
         self.num_variables = kwargs.get("num_variables")
-        self.datos = kwargs.get("datos")
+        self.data = kwargs.get("data")
         self.possibility_selection = kwargs.get("possibility_selection")
         self.metric = kwargs.get("metric")
         self.model = kwargs.get("model")
+        self.max_depth = kwargs.get("max_depth")
 
     
     def alg_stn_bin(self):
         algoritmo = cl_alg_stn_bin(
             funtion=self.funtion,
             population=self.population,
-            cant_genes=self.cant_genes,
+            cant_genes=self.num_genes,
             cant_ciclos=self.num_cycles,
             selection_percent=self.selection_percent,
             crossing=self.crossing,
@@ -56,7 +58,7 @@ class RelaxGEN(GEN):
     
     def alg_eda(self):
         algoritmo = cl_alg_eda(
-            datos = self.datos,
+            datos = self.data,
             population=self.population,
             num_variables=self.num_variables,
             num_ciclos=self.num_ciclos,
@@ -67,3 +69,11 @@ class RelaxGEN(GEN):
             model=self.model
         )
         return algoritmo.run()
+    
+    def alg_gp(self): # Genetic programming algorithm
+        algorithm = cl_alg_gp(
+            data = self.data,
+            population = self.population,
+            max_depth = self.max_depth
+        )
+        return algorithm.run()
