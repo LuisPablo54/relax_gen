@@ -74,6 +74,7 @@ class RelaxGEN(GEN):
         algorithm = cl_alg_gp(
             data = self.data,
             population = self.population,
+            num_ciclos = self.num_ciclos,
             max_depth = self.max_depth
         )
         return algorithm.run()

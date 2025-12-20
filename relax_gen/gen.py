@@ -91,6 +91,7 @@ class GEN():
         algorithm = cl_alg_gp(
             self.datos,
             self.population,
+            self.num_ciclos,
             self.max_depth
         )
         return algorithm.run()
