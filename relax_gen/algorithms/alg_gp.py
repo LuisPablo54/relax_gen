@@ -2,10 +2,9 @@ import numpy as np
 import random
 import operator
 import copy
-from types import List, Callable, Tuple
+from typing import List, Callable, Tuple
 
 def protected_div(a, b):
-    """División protegida para evitar división por cero"""
     return a / b if abs(b) > 0.001 else 1
 
 OPERATORS = {
@@ -19,11 +18,10 @@ TERMINALS = ['x', lambda: random.uniform(-5, 5)]
 
 class Node:
     def __init__(self, value, children=None):
-        self.value = value
+        self.value = value 
         self.children = children if children else []
     
     def evaluate(self, x):
-        # Evaluate the expression tree for a given x value
         if isinstance(self.value, (int, float)):
             return self.value
         elif self.value == 'x':
@@ -38,7 +36,6 @@ class Node:
         return 0
     
     def copy(self):
-        """Crea una copia profunda del árbol"""
         new_children = [child.copy() for child in self.children]
         return Node(self.value, new_children)
     
@@ -79,7 +76,7 @@ class cl_alg_gp():
 
 
     def run(self):
-        # X primer columna, Y segunda columna
+        # X first column, Y second column
         X, Y = self.data[:, 0], self.data[:, 1]
         
         populations = self.create_population(self.population, self.max_depth)
@@ -98,21 +95,21 @@ class cl_alg_gp():
 
             new_population = []
         
-            # Elitismo: mantener el mejor individuo
+            # Elitism: keep the best individual
             new_population.append(best_individual.copy())
             
             while len(new_population) < self.population:
-                # Selección
-                parent1 = self.tournament_selection(population, fitnesses)
-                parent2 = self.tournament_selection(population, fitnesses)
+                # Selection
+                parent1 = self.tournament_selection(populations, fitnesses)
+                parent2 = self.tournament_selection(populations, fitnesses)
                 
-                # Cruce
+                # Crossover
                 if random.random() < 0.9:
                     child1, child2 = self.crossover(parent1, parent2)
                 else:
                     child1, child2 = parent1.copy(), parent2.copy()
                 
-                # Mutación
+                # Mutation
                 child1 = self.mutate(child1)
                 child2 = self.mutate(child2)
                 
@@ -120,7 +117,10 @@ class cl_alg_gp():
             
             population = new_population[:self.population]
         
-        return best_individual
+        # Return the best individual and its fitness
+        finally_fitness = self.fitness(best_individual, X, Y)
+
+        return best_individual, finally_fitness
 
     
     def create_random_tree(self, max_depth, method='grow'):
@@ -138,7 +138,7 @@ class cl_alg_gp():
                 return Node(terminal)
         
         op = random.choice(list(OPERATORS.keys()))
-        num_children = 2  # Todos nuestros operadores son binarios
+        num_children = 2  # All operators are binary
         children = [self.create_random_tree(max_depth - 1, method) for _ in range(num_children)]
         return Node(op, children)
 
@@ -159,10 +159,12 @@ class cl_alg_gp():
                 return 1e10
             predictions.append(pred)
         
-            mse = np.mean((np.array(predictions) - Y) ** 2)
-            # Penalización por complejidad (parsimonia)
-            complexity_penalty = individual.get_size() * 0.01
-            return mse + complexity_penalty
+        predictions = np.array(predictions)
+        mse = np.mean((predictions - Y) ** 2)
+        
+        # Parsimony penalty (prevents excessive growth or "bloat")
+        complexity_penalty = individual.get_size() * 0.001 
+        return mse + complexity_penalty
         
     def tournament_selection(self, population, fitnesses, tournament_size=3):
         tournament_indices = random.sample(range(len(population)), tournament_size)
@@ -174,15 +176,15 @@ class cl_alg_gp():
         child1 = parent1.copy()
         child2 = parent2.copy()
         
-        # Seleccionar nodos aleatorios
+        # Select random nodes for crossover  
         nodes1 = child1.get_all_nodes()
         nodes2 = child2.get_all_nodes()
         
         if len(nodes1) > 1 and len(nodes2) > 1:
-            node1 = random.choice(nodes1[1:])  # Evitar raíz
+            node1 = random.choice(nodes1[1:])  # Avoid root
             node2 = random.choice(nodes2[1:])
             
-            # Intercambiar subárboles
+            # Swap subtrees
             node1.value, node2.value = node2.value, node1.value
             node1.children, node2.children = node2.children, node1.children
         
@@ -193,7 +195,7 @@ class cl_alg_gp():
             nodes = individual.get_all_nodes()
             if len(nodes) > 1:
                 node_to_mutate = random.choice(nodes)
-                new_subtree = self.create_random_tree(max_depth=2)
+                new_subtree = self.create_random_tree(self.max_depth // 2)
                 node_to_mutate.value = new_subtree.value
                 node_to_mutate.children = new_subtree.children
         return individual

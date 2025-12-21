@@ -18,7 +18,7 @@ def test_alg_binary_sphere_3d_aprox():
     # 1. Instanciar el modelo con 3 variables y minimización
     modelo = GEN(funtion=sphere_function_3d, 
                  population=10, 
-                 cant_genes=20,     # 20 bits/variable -> Cromosoma total de 60 bits
+                 num_genes=20,     # 20 bits/variable -> Cromosoma total de 60 bits
                  num_cycles=15,    
                  selection_percent=0.5,
                  crossing=0.8, 

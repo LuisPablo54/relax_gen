@@ -27,7 +27,7 @@ class RelaxGEN(GEN):
 
     
     def alg_stn_bin(self):
-        algoritmo = cl_alg_stn_bin(
+        algorithm = cl_alg_stn_bin(
             funtion=self.funtion,
             population=self.population,
             cant_genes=self.num_genes,
@@ -41,10 +41,10 @@ class RelaxGEN(GEN):
             num_variables=self.num_variables,
             select_mode=self.select_mode
         )
-        return algoritmo.run()
+        return algorithm.run()
 
     def alg_quantum(self):
-        algoritmo = cl_alg_quantum(
+        algorithm = cl_alg_quantum(
             funtion=self.funtion,
             population=self.population,
             num_qubits=self.num_qubits,
@@ -54,10 +54,10 @@ class RelaxGEN(GEN):
             i_max=self.i_max,
             optimum=self.optimum
         )
-        return algoritmo.run()
+        return algorithm.run()
     
     def alg_eda(self):
-        algoritmo = cl_alg_eda(
+        algorithm = cl_alg_eda(
             datos = self.data,
             population=self.population,
             num_variables=self.num_variables,
@@ -68,7 +68,7 @@ class RelaxGEN(GEN):
             metric=self.metric,
             model=self.model
         )
-        return algoritmo.run()
+        return algorithm.run()
     
     def alg_gp(self): # Genetic programming algorithm
         algorithm = cl_alg_gp(
