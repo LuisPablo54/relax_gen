@@ -1,6 +1,6 @@
 # 🧬 RelaxGEN: Librería de Algoritmos de Optimización Genética y Probabilística
 
-[![PyPI Version](https://img.shields.io/pypi/v/relaxgen?color=blue)](https://pypi.org/project/relax-gen/)
+[![PyPI Version](https://img.shields.io/pypi/v/relax-gen?color=blue)](https://pypi.org/project/relax-gen/)
 [![License](https://img.shields.io/github/license/LuisPablo54/relax_gen)](https://github.com/LuisPablo54/relax_gen/blob/main/LICENSE)
 [![GitHub last commit](https://img.shields.io/github/last-commit/LuisPablo54/relax_gen)](https://github.com/LuisPablo54/relax_gen/commits/main/)
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)]()
