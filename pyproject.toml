@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "relax_gen"
-version = "0.2.0"
+version = "0.3.0"
 description = "Librería de algoritmos genéticos y cuánticos desarrollada por Luis"
 readme = "README.md"
 authors = [
