@@ -7,11 +7,12 @@
 
 ## 💡 ¿Qué es RelaxGEN?
 
-**RelaxGEN** es una librería Python de alto nivel diseñada para facilitar la implementación y experimentación con diferentes modelos de optimización metaheurística. Ofrece una API unificada para tres paradigmas principales:
+**RelaxGEN** es una librería Python de alto nivel diseñada para facilitar la implementación y experimentación con diferentes modelos de optimización metaheurística. Ofrece una API unificada para los siguientes paradigmas:
 
-1.  **Algoritmos Genéticos Clásicos:** Basados en codificación binaria y operadores estándar.
-2.  **Algoritmos Genéticos Cuánticos (QGA):** Utilizando representación probabilística (Qubits) para una búsqueda más eficiente.
-3.  **Algoritmos de Estimación de Distribución (EDA):** Modelado probabilístico para generar nuevas poblaciones.
+1.  **Algoritmo Genéticos Clásicos:** Basados en codificación binaria y operadores estándar para explotar bloques de construcción, siendo el método más robusto cuando no se conoce la estructura del problema.
+2.  **Algoritmo Genéticos Cuánticos (QGA):** Utilizando representación probabilística (Qubits) permitiendo una búsqueda de alta velocidad con poblaciones mínimas.
+3.  **Algoritmo de Estimación de Distribución (EDA):** Modelado probabilístico que identifica correlaciones entre variables, diferenciándose por su capacidad de resolver problemas con dependencias complejas.
+4.  **Algoritmo de Programación Genética (GP):** Evoluciona estructuras jerárquicas ejecutables donde la a solución es un algoritmo o función matemática capaz de procesar entradas, permitiendo la síntesis automática de código o modelos simbólicos.
 
 > El objetivo principal es proporcionar una herramienta flexible y rápida para la optimización de funciones y el ajuste de modelos complejos.
 
