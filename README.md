@@ -52,6 +52,9 @@ result = modelo.alg_stn_bin()
 print("Best result:", result)
 ```
 
+<img width="508" height="509" alt="Figure_1_Ackley" src="https://github.com/user-attachments/assets/91a584a0-2ea8-43e0-9168-f1023353e291" />
+
+
 RelaxGEN lets you easily switch between different optimization models.
 Parameter names and behavior adapt depending on the selected algorithm.
 
@@ -88,6 +91,13 @@ Please follow these steps:
 
 We appreciate every contribution
 
-## 📄 Licencia
+## 📄 License
 
 This project is licensed under the MIT License — see the LICENSE file for details.
+
+
+**Happy optimizing!**
+
+Feel free to ⭐ the repository if you find it useful!
+
+
