@@ -1,62 +1,93 @@
-# 🧬 RelaxGEN: Librería de Algoritmos de Optimización Genética y Probabilística
+# 🧬 RelaxGEN: Genetic & Probabilistic Optimization Library
 
 [![PyPI Version](https://img.shields.io/pypi/v/relax-gen?color=blue)](https://pypi.org/project/relax-gen/)
 [![License](https://img.shields.io/github/license/LuisPablo54/relax_gen)](https://github.com/LuisPablo54/relax_gen/blob/main/LICENSE)
 [![GitHub last commit](https://img.shields.io/github/last-commit/LuisPablo54/relax_gen)](https://github.com/LuisPablo54/relax_gen/commits/main/)
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)]()
 
-## 💡 ¿Qué es RelaxGEN?
+## 💡 What is RelaxGEN?
 
-**RelaxGEN** es una librería Python de alto nivel diseñada para facilitar la implementación y experimentación con diferentes modelos de optimización metaheurística. Ofrece una API unificada para los siguientes paradigmas:
+**RelaxGEN** is a modern, high-level **Python library** designed to make it easy to implement and experiment with **metaheuristic optimization algorithms**.
 
-1.  **Algoritmo Genéticos Clásicos:** Basados en codificación binaria y operadores estándar para explotar bloques de construcción, siendo el método más robusto cuando no se conoce la estructura del problema.
-2.  **Algoritmo Genéticos Cuánticos (QGA):** Utilizando representación probabilística (Qubits) permitiendo una búsqueda de alta velocidad con poblaciones mínimas.
-3.  **Algoritmo de Estimación de Distribución (EDA):** Modelado probabilístico que identifica correlaciones entre variables, diferenciándose por su capacidad de resolver problemas con dependencias complejas.
-4.  **Algoritmo de Programación Genética (GP):** Evoluciona estructuras jerárquicas ejecutables donde la a solución es un algoritmo o función matemática capaz de procesar entradas, permitiendo la síntesis automática de código o modelos simbólicos.
+It provides a clean, unified API for several powerful paradigms:
 
-> El objetivo principal es proporcionar una herramienta flexible y rápida para la optimización de funciones y el ajuste de modelos complejos.
+1. **Classical Genetic Algorithms** — Binary encoding with standard operators (crossover, mutation, selection). Very robust when the problem structure is unknown.
+2. **Quantum Genetic Algorithms (QGA)** — Probabilistic representation using **qubits**, enabling very fast search with minimal population size.
+3. **Estimation of Distribution Algorithms (EDA)** — Advanced probabilistic modeling that captures variable dependencies — excellent for complex, epistatic problems.
+4. **Genetic Programming (GP)** — Evolves executable hierarchical structures (trees), allowing automatic synthesis of mathematical expressions, programs or symbolic models.
 
-## 🚀 Instalación
+> The main goal is to offer a **flexible, fast and user-friendly tool** for function optimization, hyperparameter tuning, and solving complex real-world problems.
 
-La forma más sencilla de instalar es a través de `pip`:
+## 🚀 Installation
+
+The easiest way is via **pip**:
 
 ```bash
 pip install relax-gen
 ```
 
-## Uso Rápido
+## Quick Start Example
 
 ```bash
 import numpy as np
-import relax_gen.GEN as rg
+from relax_gen import GEN
 
-def funcion_test(x):
-    return (np.sin(5*x) + 1.5*np.sin(2*x)) * np.exp(-0.1 * x**2)
+# ackley = 20 + e - 20 * exp(-0.2 * sqrt(0.5 * (x^2 + y^2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y)))
+def ackley(valor, a=20, b=0.2, c=2*np.pi):
+    x = valor[:,0]
+    y = valor[:,1]
 
-print("Inicio")
-menu = rg(funcion_test,  
-           population=300, 
-           i_min=-2, 
-           i_max=2
-           )
+    term1 = -a * np.exp(-b * np.sqrt(0.5 * (x**2 + y**2)))
+    term2 = -np.exp(0.5 * (np.cos(c * x) + np.cos(c * y)))
+    return term1 + term2 + a + np.e
 
-best_individual = menu.alg_stn_bin()
+modelo = GEN(ackley, 
+        population=300, 
+        i_min=-2, 
+        i_max=2,
+        num_variables=2
+        )
+
+result = modelo.alg_stn_bin()
+print("Best result:", result)
 ```
 
-La librería relax-gen te permite elegir entre tres modelos de optimización diferentes. Los parámetros de inicialización varían según el algoritmo seleccionado. 
+RelaxGEN lets you easily switch between different optimization models.
+Parameter names and behavior adapt depending on the selected algorithm.
 
-Más información sobre las distintas funciones se encuentra en la Wiki: 
+More information about the different functions can be found on the Wiki:
 https://github.com/LuisPablo54/relax_gen/wiki
 
+## Key Features
 
-## 🤝 Contribuciones
-¡Las contribuciones son bienvenidas! Si deseas agregar un nuevo algoritmo genético, mejorar la documentación o reportar un error, por favor revisa la guía de contribución.
-- Haz un Fork del repositorio.
-- Crea una rama.
-- Commitea tus cambios.
-- Empuja al branch.
-- Abre un Pull Request.
+- Unified and intuitive high-level API
+- Support for continuous, discrete and mixed problems
+- Multiple state-of-the-art evolutionary paradigms in one package
+- Designed for rapid prototyping and research experimentation
+- Extensible — easy to add new algorithms or custom operators
+
+
+
+## 🤝 Contributing
+Contributions are very welcome!
+Whether you want to:
+
+- Add a new optimization algorithm
+- Improve performance
+- Enhance documentation
+- Fix bugs
+- Add new examples or benchmarks
+
+Please follow these steps:
+
+- Fork the repository
+- Create your feature branch 
+- Commit your changes 
+- Push to the branch 
+- Open a Pull Request
+
+We appreciate every contribution
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+This project is licensed under the MIT License — see the LICENSE file for details.
