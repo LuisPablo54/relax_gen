@@ -7,21 +7,19 @@ de manera sencilla y rápida.
 Se agregarán más modelos conforme se vayan necesitando.
 '''
 
-import numpy as np
-import pandas as pd
-
 # Import the algorithms to be used
-from .algorithms.alg_bin import cl_alg_stn_bin
+from .algorithms.alg_binary import cl_alg_stn_bin
 from .algorithms.alg_quantum import cl_alg_quantum
-from .algorithms.alg_eda import cl_alg_eda
-from .algorithms.alg_gp import cl_alg_gp
+from .algorithms.alg_EDA import cl_alg_eda
+from .algorithms.alg_genetic_programming import cl_alg_gp
+from .algorithms.alg_differential_evolution import cl_alg_de
 
 
 class GEN():
     def __init__(self, funtion= None, population=None, num_genes = 8, num_cycles= 100, selection_percent = 0.5, 
                  crossing = 0.5, mutation_percent = 0.3, i_min = None, i_max = None, optimum = "max", 
                  num_qubits = 16, num_variables = 1, select_mode='ranking', datos=None, possibility_selection=0.5,
-                 metric="mse", model="polynomial", max_depth=5):
+                 metric="mse", model="polynomial", max_depth=5, limits=None):
         self.funtion = funtion
         self.population = population
         self.num_genes = num_genes
@@ -40,6 +38,9 @@ class GEN():
         self.metric = metric
         self.model = model
         self.max_depth = max_depth
+        # Limits for DE algorithm
+        self.limits = limits
+
 
     def alg_stn_bin(self): # Standard binary algorithm
         algorithm = cl_alg_stn_bin(
@@ -93,5 +94,18 @@ class GEN():
             self.population,
             self.num_ciclos,
             self.max_depth
+        )
+        return algorithm.run()
+    
+    def alg_de(self): # Differential Evolution algorithm
+        algorithm = cl_alg_de(
+            function=self.funtion,
+            population_size= self.population,
+            num_variables=self.num_variables,
+            mutation_factor=self.mutation_percent,
+            crossover_rate=self.crossing,
+            generations=self.num_ciclos,
+            limits=self.limits,
+            optimum=self.optimum    
         )
         return algorithm.run()

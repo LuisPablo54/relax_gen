@@ -1,18 +1,18 @@
 from .gen import GEN
-from .algorithms.alg_bin import cl_alg_stn_bin
+from .algorithms.alg_binary import cl_alg_stn_bin
 from .algorithms.alg_quantum import cl_alg_quantum
-from .algorithms.alg_eda import cl_alg_eda
-from .algorithms.alg_gp import cl_alg_gp
+from .algorithms.alg_EDA import cl_alg_eda
+from .algorithms.alg_genetic_programming import cl_alg_gp
+from .algorithms.alg_differential_evolution import cl_alg_de
 
 class RelaxGEN(GEN):
     def __init__(self, funtion=None, population=None, **kwargs):
         super().__init__(funtion, population, **kwargs)
-        # Almacena los parámetros específicos como atributos directos
-        self.num_genes = kwargs.get("num_genes")
-        self.num_cycles = kwargs.get("num_cycles")
-        self.selection_percent = kwargs.get("selection_percent")
-        self.crossing = kwargs.get("crossing")
-        self.mutation_percent = kwargs.get("mutation_percent")
+        self.num_genes = kwargs.get("num_genes")  
+        self.num_cycles = kwargs.get("num_cycles") 
+        self.selection_percent = kwargs.get("selection_percent") 
+        self.crossing = kwargs.get("crossing") 
+        self.mutation_percent = kwargs.get("mutation_percent") 
         self.i_min = kwargs.get("i_min")
         self.i_max = kwargs.get("i_max")
         self.optimum = kwargs.get("optimum")
@@ -24,6 +24,8 @@ class RelaxGEN(GEN):
         self.metric = kwargs.get("metric")
         self.model = kwargs.get("model")
         self.max_depth = kwargs.get("max_depth")
+        self.limits = kwargs.get("limits")
+
 
     
     def alg_stn_bin(self):
@@ -76,5 +78,19 @@ class RelaxGEN(GEN):
             population = self.population,
             num_ciclos = self.num_ciclos,
             max_depth = self.max_depth
+        )
+        return algorithm.run()
+    
+
+    def alg_de(self): # Differential Evolution algorithm
+        algorithm = cl_alg_de(
+            function=self.funtion,
+            population_size=self.population,
+            num_variables=self.num_variables,
+            mutation_factor=self.mutation_percent,
+            crossover_rate=self.crossing,
+            generations=self.num_cycles,
+            limits=self.limits,
+            optimum=self.optimum    
         )
         return algorithm.run()

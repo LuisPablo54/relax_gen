@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 import random
-from relax_gen.algorithms.alg_gp import Node, cl_alg_gp, OPERATORS, TERMINALS, protected_div
+from relax_gen.algorithms.alg_genetic_programming import Node, cl_alg_gp, OPERATORS, TERMINALS, protected_div
 
 
 # ==================== FIXTURES ====================
